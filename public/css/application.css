@@ -1,0 +1,22 @@
+.container {
+
+}
+
+.page-header {
+  border-bottom: 1px solid #f9f9f9
+}
+th {
+  text-align: left;
+}
+
+nav {
+float: right;
+
+}
+
+#about {
+  margin-top: 0px;
+  height: 200px;
+  background-image: url(/aboutme.jpg);
+  background-size: cover;
+}
