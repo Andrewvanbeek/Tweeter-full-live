@@ -6,6 +6,9 @@
      <div id="game">
             <script type="text/javascript">
             $(function() {
+
+    $(".EmbeddedTweet-tweet").addClass("tweet")
+
         html2canvas($("body"), {
             logging: true,
             useCORS: true,
@@ -18,7 +21,7 @@
                 // Clean up
                 //document.body.removeChild(canvas);
 
-                var game = new Phaser.Game(1600, 1500, Phaser.CANVAS, "game", { preload: preload, create: create, update: update, render: render });
+                var game = new Phaser.Game(1600, 1800, Phaser.CANVAS, "game", { preload: preload, create: create, update: update, render: render });
                 var imageo = $("img")
                 console.log(imageo)
 var elevator;
@@ -31,7 +34,7 @@ function preload() {
 var card;
 var cursors;
 function create() {
-    game.world.setBounds(0, 0, 1600, 350);
+    game.world.setBounds(0, 0, 1600, 1600);
     game.physics.startSystem(Phaser.Physics.ARCADE);
     platforms = game.add.group();
     game.add.sprite(0, 0, 'twitter')
@@ -88,7 +91,6 @@ function render() {
 });
 </script>
 
-    <%= render partial: 'layouts/games' %>
         <div id="doc" data-at-shortcutkeys='{"Enter":"Open Tweet details","o":"Expand photo","/":"Search","?":"This menu","j":"Next Tweet","k":"Previous Tweet","Space":"Page down",".":"Load new Tweets","gu":"Go to user\u2026"}' class="">
             <div class="StreamsTopBar-container StreamsTopBar-container--withStreamHero">
                 <div class="StreamsTopBar StreamsTopBar--fixed js-variableHeightTopBar">
@@ -293,6 +295,7 @@ function render() {
                                 </div>
                             </div>
                         </div>
+
                         <div class="TweetWithPivotModule" data-scribe-context='{"id":"686639666779394078","name":"Science","type":"stream"}'>
                             <div class="TweetWithPivotModule-header">
                                 <a href="https://twitter.com/i/streams/stream/686639666779394078" class="js-nav">Science</a>
@@ -387,6 +390,104 @@ function render() {
                                 </div>
                             </div>
                         </div>
+
+        <div class="TweetWithPivotModule" data-scribe-context='{"id":"686639666779394078","name":"Science","type":"stream"}'>
+            <div class="TweetWithPivotModule-header">
+                <a href="https://twitter.com/i/streams/stream/686639666779394078" class="js-nav">Science</a>
+            </div>
+            <div class="tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable original-tweet js-original-tweet has-cards has-content" data-tweet-id="818012040518336512" data-item-id="818012040518336512" data-permalink-path="/nature/status/818012040518336512" data-tweet-nonce="818012040518336512-d7bdfb2d-768b-4018-81b1-268fdeee1a0d" data-screen-name="nature" data-name="nature" data-user-id="487833518" data-you-follow="false" data-follows-you="false" data-you-block="false" data-disclosure-type="" data-has-cards="true">
+                <div class="context"></div>
+                <div class="content">
+                    <div class="AdaptiveMedia is-square">
+                        <div class="AdaptiveMedia-container js-adaptive-media-container">
+                            <div class="AdaptiveMedia-singlePhoto">
+                                <div class="AdaptiveMedia-photoContainer js-adaptive-photo" data-image-url="https://pbs.twimg.com/media/C1opnV1WgAA7SC2.jpg" data-element-context="platform_photo_card">
+                                    <% if @tweet.user.profile_background_image_url %>
+                                    <img data-aria-label-part="" src= <%= @tweet.user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <% end %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stream-item-header">
+                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweet.user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                    </div>
+                    <div class="js-tweet-text-container">
+                        <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
+                            <%= @tweet.text %>
+                        </p>
+                    </div>
+                    <div class="stream-item-footer">
+                        <div class="ProfileTweet-actionCountList u-hiddenVisually">
+                            <span class="ProfileTweet-action--reply u-hiddenVisually"><span class="ProfileTweet-actionCount" aria-hidden="true" data-tweet-stat-count="0"><span class="ProfileTweet-actionCountForAria">0 replies</span></span></span> <span class="ProfileTweet-action--retweet u-hiddenVisually"><span class="ProfileTweet-actionCount" data-tweet-stat-count="178"><span class="ProfileTweet-actionCountForAria" data-aria-label-part="">178 retweets</span></span></span> <span class="ProfileTweet-action--favorite u-hiddenVisually"><span class="ProfileTweet-actionCount" data-tweet-stat-count="244"><span class="ProfileTweet-actionCountForAria" data-aria-label-part="">244 likes</span></span></span>
+                        </div>
+                        <div class="ProfileTweet-actionList js-actions" role="group" aria-label="Tweet actions">
+                            <div class="ProfileTweet-action ProfileTweet-action--reply">
+                                <button class="ProfileTweet-actionButton u-textUserColorHover js-actionButton js-actionReply" data-modal="ProfileTweet-reply" type="button">
+                                <div class="IconContainer js-tooltip" title="Reply">
+                                    <span class="u-hiddenVisually">Reply</span>
+                                </div>
+                                <div class="IconTextContainer"></div></button>
+                            </div>
+                            <div class="ProfileTweet-action ProfileTweet-action--retweet js-toggleState js-toggleRt">
+                                <button class="ProfileTweet-actionButton js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button">
+                                <div class="IconContainer js-tooltip" title="Retweet">
+                                    <span class="u-hiddenVisually">Retweet</span>
+                                </div>
+                                <div class="IconTextContainer">
+                                    <span class="ProfileTweet-actionCount"><span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">178</span></span>
+                                </div></button><button class="ProfileTweet-actionButtonUndo js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button">
+                                <div class="IconContainer js-tooltip" title="Undo retweet">
+                                    <span class="u-hiddenVisually">Retweeted</span>
+                                </div>
+                                <div class="IconTextContainer">
+                                    <span class="ProfileTweet-actionCount"><span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">178</span></span>
+                                </div></button>
+                            </div>
+                            <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
+                                <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button">
+                                <div class="IconContainer js-tooltip" title="Like">
+                                    <div class="HeartAnimationContainer">
+                                        <div class="HeartAnimation"></div>
+                                    </div><span class="u-hiddenVisually">Like</span>
+                                </div>
+                                <div class="IconTextContainer">
+                                    <span class="ProfileTweet-actionCount"><span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">244</span></span>
+                                </div></button><button class="ProfileTweet-actionButtonUndo u-linkClean js-actionButton js-actionFavorite" type="button">
+                                <div class="IconContainer js-tooltip" title="Undo like">
+                                    <div class="HeartAnimationContainer">
+                                        <div class="HeartAnimation"></div>
+                                    </div><span class="u-hiddenVisually">Liked</span>
+                                </div>
+                                <div class="IconTextContainer">
+                                    <span class="ProfileTweet-actionCount"><span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">244</span></span>
+                                </div></button>
+                            </div>
+                            <div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions">
+                                <div class="dropdown">
+                                    <button class="ProfileTweet-actionButton u-textUserColorHover dropdown-toggle js-dropdown-toggle" type="button">
+                                    <div class="IconContainer js-tooltip" title="More">
+                                        <span class="u-hiddenVisually">More</span>
+                                    </div></button>
+                                    <div class="dropdown-menu">
+                                        <div class="dropdown-caret">
+                                            <div class="caret-outer"></div>
+                                            <div class="caret-inner"></div>
+                                        </div>
+                                        <ul>
+                                            <li class="copy-link-to-tweet js-actionCopyLinkToTweet">
+                                                <button type="button" class="dropdown-link">Copy link to Tweet</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
                         <div class="TweetWithPivotModule" data-scribe-context='{"id":"686639666779394078","name":"Science","type":"stream"}'>
                             <div class="TweetWithPivotModule-header">

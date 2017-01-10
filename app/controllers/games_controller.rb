@@ -3,6 +3,7 @@ class GamesController < ApplicationController
     doc = Nokogiri::HTML(open("https://twitter.com/i/streams/category/686639666779394060"))
     doc = doc.css("#doc")
     @body = doc.to_s
+    @tweet = $twitter.search("#puppy -rt", filter: "images").first
   end
 
   def create
