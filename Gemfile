@@ -8,13 +8,18 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+gem 'phantomjs', '~> 2.1', '>= 2.1.1.0'
+gem 'screencap'
+gem 'webshot'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 gem 'nokogiri'
 gem 'css_parser'
 gem 'phaser-rails'
+gem 'twitter'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

@@ -17,7 +17,7 @@
                 // Clean up
                 //document.body.removeChild(canvas);
 
-                var game = new Phaser.Game(600, 1500, Phaser.CANVAS, "game", { preload: preload, create: create, update: update, render: render });
+                var game = new Phaser.Game(1600, 1500, Phaser.CANVAS, "game", { preload: preload, create: create, update: update, render: render });
 var elevator;
 var swiftblocka;
 function preload() {
@@ -28,7 +28,7 @@ function preload() {
 var card;
 var cursors;
 function create() {
-    game.world.setBounds(0, 0, 600, 350);
+    game.world.setBounds(0, 0, 1600, 350);
     game.physics.startSystem(Phaser.Physics.ARCADE);
     platforms = game.add.group();
     game.add.sprite(0, 0, 'twitter')
@@ -384,8 +384,9 @@ function render() {
                                 </div>
                             </div>
                         </div>
-
-
+                        <div class="TweetWithPivotModule">
+                            <%= raw(@tweet.html) %>
+                        </div>
                         <div class="TweetWithPivotModule" data-scribe-context='{"id":"686639666779394078","name":"Science","type":"stream"}'>
                             <div class="TweetWithPivotModule-header">
                                 <a href="https://twitter.com/i/streams/stream/686639666779394078" class="js-nav">Science</a>
