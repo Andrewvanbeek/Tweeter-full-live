@@ -6,8 +6,9 @@
      <div id="game">
             <script type="text/javascript">
             $(function() {
-
         html2canvas($("body"), {
+            logging: true,
+            useCORS: true,
             onrendered: function(canvas) {
                 theCanvas = canvas;
                 // document.body.appendChild(canvas);
@@ -18,6 +19,8 @@
                 //document.body.removeChild(canvas);
 
                 var game = new Phaser.Game(1600, 1500, Phaser.CANVAS, "game", { preload: preload, create: create, update: update, render: render });
+                var imageo = $("img")
+                console.log(imageo)
 var elevator;
 var swiftblocka;
 function preload() {
@@ -384,9 +387,7 @@ function render() {
                                 </div>
                             </div>
                         </div>
-                        <div class="TweetWithPivotModule">
-                            <%= raw(@tweet.html) %>
-                        </div>
+
                         <div class="TweetWithPivotModule" data-scribe-context='{"id":"686639666779394078","name":"Science","type":"stream"}'>
                             <div class="TweetWithPivotModule-header">
                                 <a href="https://twitter.com/i/streams/stream/686639666779394078" class="js-nav">Science</a>

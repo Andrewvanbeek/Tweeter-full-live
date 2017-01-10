@@ -3,8 +3,6 @@ class GamesController < ApplicationController
     doc = Nokogiri::HTML(open("https://twitter.com/i/streams/category/686639666779394060"))
     doc = doc.css("#doc")
     @body = doc.to_s
-    tweet = $twitter.search("#devbootcamp -rt", lang: "en").first
-    @tweet = $twitter.oembed(tweet.id.to_s)
   end
 
   def create
