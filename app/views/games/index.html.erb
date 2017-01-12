@@ -45,25 +45,25 @@ $(function() {
 
 
 
-            var tweetAGridOne = platforms.create(150, 420 )
+            var tweetAGridOne = platforms.create(140, 420 )
             tweetAGridOne.scale.setTo(11.5, 7);
             tweetAGridOne.body.immovable = true;
-            var tweetBGridOne = platforms.create(150, 870 )
+            var tweetBGridOne = platforms.create(140, 870 )
             tweetBGridOne.scale.setTo(11.5, 7);
             tweetBGridOne.body.immovable = true;
-            var tweetCGridOne = platforms.create(150, 1310)
+            var tweetCGridOne = platforms.create(140, 1250)
             tweetCGridOne.scale.setTo(11.5, 7);
             tweetCGridOne.body.immovable = true;
 
-            var tweetAGridTwo = platforms.create(555, 420)
+            var tweetAGridTwo = platforms.create(545, 420)
             tweetAGridTwo.scale.setTo(11.5, 7);
             tweetAGridTwo.body.immovable = true;
-            var tweetAGridTwo = platforms.create(555, 870)
-            tweetAGridTwo.scale.setTo(11.5, 7);
-            tweetAGridTwo.body.immovable = true;
-            var tweetAGridTwo = platforms.create(555, 1310)
-            tweetAGridTwo.scale.setTo(11.5, 7);
-            tweetAGridTwo.body.immovable = true;
+            var tweetBGridTwo = platforms.create(545, 870)
+            tweetBGridTwo.scale.setTo(11.5, 7);
+            tweetBGridTwo.body.immovable = true;
+            var tweetCGridTwo = platforms.create(565, 1250)
+            tweetCGridTwo.scale.setTo(11.5, 7);
+            tweetCGridTwo.body.immovable = true;
             enemiesGridOne = game.add.group()
             baddies = []
             eOneY = 120
@@ -104,7 +104,6 @@ $(function() {
             cursors = game.input.keyboard.createCursorKeys();
             }
             function update() {
-            $("#all").remove()
             for(var i = 0; i < 6; i++){
                 var a = 1
                 var b = 1
@@ -158,12 +157,11 @@ $(function() {
             {
             player.body.velocity.y = -450;
             }
-
-
+ $("#all").remove()
             }
+
             function render() {
-            game.debug.cameraInfo(game.camera, 500, 32);
-            game.debug.spriteCoords(player, 32, 32);
+
             }
 
             }
@@ -300,7 +298,7 @@ $(function() {
                                                 </div>
                                             </div>
                                             <div class="stream-item-header">
-                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweets[0].user.profile_image_url%> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweets[0].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part=""><%= @tweets[0].user.name %></strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b><%= @tweets[0].user.screen_name %></b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                                             </div>
                                             <div class="js-tweet-text-container">
                                                 <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
@@ -396,7 +394,7 @@ $(function() {
                                                 </div>
                                             </div>
                                             <div class="stream-item-header">
-                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335182"><img class="avatar js-action-profile-avatar" src= <%= @tweets[1].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335182"><img class="avatar js-action-profile-avatar" src= <%= @tweets[1].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part=""><%= @tweets[1].user.name %></strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b><%= @tweets[0].user.screen_name %></b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                                             </div>
                                             <div class="js-tweet-text-container">
                                                 <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
@@ -492,7 +490,7 @@ $(function() {
                                                 </div>
                                             </div>
                                             <div class="stream-item-header">
-                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335183"><img class="avatar js-action-profile-avatar" src= <%= @tweets[2].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335183"><img class="avatar js-action-profile-avatar" src= <%= @tweets[2].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part=""><%= @tweets[2].user.name %></strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b><%= @tweets[2].user.screen_name %></b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                                             </div>
                                             <div class="js-tweet-text-container">
                                                 <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
@@ -590,7 +588,7 @@ $(function() {
                                                 </div>
                                             </div>
                                             <div class="stream-item-header">
-                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335184"><img class="avatar js-action-profile-avatar" src= <%= @tweets[3].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335184"><img class="avatar js-action-profile-avatar" src= <%= @tweets[3].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part=""><%= @tweets[3].user.name %></strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b><%= @tweets[3].user.name %></b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                                             </div>
                                             <div class="js-tweet-text-container">
                                                 <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
@@ -686,7 +684,7 @@ $(function() {
                                                 </div>
                                             </div>
                                             <div class="stream-item-header">
-                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335185"><img class="avatar js-action-profile-avatar" src= <%= @tweets[4].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335185"><img class="avatar js-action-profile-avatar" src= <%= @tweets[4].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part=""><%= @tweets[4].user.name %> </strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b><%= @tweets[4].user.screen_name %></b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                                             </div>
                                             <div class="js-tweet-text-container">
                                                 <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
@@ -782,7 +780,7 @@ $(function() {
                                                 </div>
                                             </div>
                                             <div class="stream-item-header">
-                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335186"><img class="avatar js-action-profile-avatar" src= <%= @tweets[5].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335186"><img class="avatar js-action-profile-avatar" src= <%= @tweets[5].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part=""><%= @tweets[5].user.name %></strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b><%= @tweets[5].user.screen_name %></b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                                             </div>
                                             <div class="js-tweet-text-container">
                                                 <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
@@ -895,7 +893,7 @@ $(function() {
                                                 </div>
                                             </div>
                                             <div class="stream-item-header">
-                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335187"><img class="avatar js-action-profile-avatar" src= <%= @tweets[6].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335187"><img class="avatar js-action-profile-avatar" src= <%= @tweets[6].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part=""><%= @tweets[6].user.name %></strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b><%= @tweets[6].user.screen_name %></b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                                             </div>
                                             <div class="js-tweet-text-container">
                                                 <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
@@ -992,7 +990,7 @@ $(function() {
                                                 </div>
                                             </div>
                                             <div class="stream-item-header">
-                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335188"><img class="avatar js-action-profile-avatar" src= <%= @tweets[7].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="4878335188"><img class="avatar js-action-profile-avatar" src= <%= @tweets[7].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part=""><%= @tweets[7].user.name %></strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b><%= @tweets[7].user.screen_name %></b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                                             </div>
                                             <div class="js-tweet-text-container">
                                                 <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">

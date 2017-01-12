@@ -5,14 +5,6 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <IfModule mod_setenvif.c>
-    <IfModule mod_headers.c>
-        <FilesMatch "\.(cur|gif|ico|jpe?g|png|svgz?|webp)$">
-            SetEnvIf Origin ":" IS_CORS
-            Header set Access-Control-Allow-Origin "*" env=IS_CORS
-        </FilesMatch>
-    </IfModule>
-</IfModule>
   </head>
 
     <body class="three-col logged-out Streams StreamsColor--orange" data-fouc-class-names="swift-loading" dir="ltr">
