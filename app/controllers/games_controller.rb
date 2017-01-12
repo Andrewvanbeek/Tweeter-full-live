@@ -3,7 +3,8 @@ class GamesController < ApplicationController
     doc = Nokogiri::HTML(open("https://twitter.com/i/streams/category/686639666779394060"))
     doc = doc.css("#doc")
     @body = doc.to_s
-    @tweet = $twitter.search("#nintendo -rt", filter: "images").first
+    tweet_results = $twitter.search("#nintendo -rt", filter: "images", result_type: "recent").take(36).to_a.shuffle
+    @tweets = tweet_results.take(9)
   end
 
   def create

@@ -43,13 +43,19 @@ function create() {
      var ground = platforms.create(0, game.world.height - 64, 'ground');
     ground.scale.setTo(5, 0.000001);
     ground.body.immovable = true;
-    var tweetAGridOne = platforms.create(120, 420 )
+
+
+
+
+
+
+    var tweetAGridOne = platforms.create(150, 420 )
     tweetAGridOne.scale.setTo(11.5, 7);
     tweetAGridOne.body.immovable = true;
-    var tweetBGridOne = platforms.create(120, 870 )
+    var tweetBGridOne = platforms.create(150, 870 )
     tweetBGridOne.scale.setTo(11.5, 7);
     tweetBGridOne.body.immovable = true;
-    var tweetCGridOne = platforms.create(120, 1310)
+    var tweetCGridOne = platforms.create(150, 1310)
     tweetCGridOne.scale.setTo(11.5, 7);
     tweetCGridOne.body.immovable = true;
 
@@ -62,6 +68,21 @@ function create() {
     var tweetAGridTwo = platforms.create(555, 1310)
     tweetAGridTwo.scale.setTo(11.5, 7);
     tweetAGridTwo.body.immovable = true;
+      enemiesGridOne = game.add.group()
+      baddies = []
+      eOneY = 120
+     while(eOneY < 1310 )
+        {
+            enemy = enemiesGridOne.create(180, eOneY, 'dude');
+            game.physics.arcade.enable(enemy);
+            enemy.body.bounce.y = 0.1;
+            enemy.body.gravity.y = 200;
+            enemy.body.collideWorldBounds = true;
+            enemy.animations.add('lefto', [0, 1, 2, 3], 10, true);
+            enemy.animations.add('righto', [5, 6, 7, 8], 10, true);
+            eOneY += 500
+        baddies.push(enemy)
+        }
     player = game.add.sprite(160, 200, 'dude');
     game.physics.arcade.enable(player);
     game.camera.follow(player);
@@ -74,8 +95,20 @@ function create() {
 }
 function update() {
     $("#all").remove()
-     var hitPlatform = game.physics.arcade.collide(player, platforms)
+    for(var i = 0; i < 3; i++){
+        if(baddies[i].body.x <= 190 && baddies[i].body.x <= 400 ){
+            baddies[i].body.velocity.x = 300
+            baddies[i].animations.play('righto')
+        }
+         if(baddies[i].body.x >= 410){
+            baddies[i].animations.play('lefto')
+             baddies[i].body.velocity.x = -300
+        }
 
+    }
+
+     var hitPlatform = game.physics.arcade.collide(player, platforms)
+    var hitPlatform = game.physics.arcade.collide(enemiesGridOne, platforms)
      if(cursors.left.isDown){
         player.body.velocity.x = -550;
         player.animations.play('left');
@@ -233,21 +266,21 @@ function render() {
                         <div class="AdaptiveMedia-container js-adaptive-media-container">
                             <div class="AdaptiveMedia-singlePhoto">
                                 <div class="AdaptiveMedia-photoContainer js-adaptive-photo" data-image-url="https://pbs.twimg.com/media/C1opnV1WgAA7SC2.jpg" data-element-context="platform_photo_card">
-                                    <% if @tweet.user.profile_background_image_url %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <% if @tweets[0].user.profile_background_image_url %>
+                                    <img data-aria-label-part="" src= <%= @tweets[0].user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% else %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <img data-aria-label-part="" src= <%= @tweets[0].user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% end %>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="stream-item-header">
-                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweet.user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweets[0].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                     </div>
                     <div class="js-tweet-text-container">
                         <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
-                            <%= @tweet.text %>
+                            <%= @tweets[0].text %>
                         </p>
                     </div>
                     <div class="stream-item-footer">
@@ -330,21 +363,21 @@ function render() {
                         <div class="AdaptiveMedia-container js-adaptive-media-container">
                             <div class="AdaptiveMedia-singlePhoto">
                                 <div class="AdaptiveMedia-photoContainer js-adaptive-photo" data-image-url="https://pbs.twimg.com/media/C1opnV1WgAA7SC2.jpg" data-element-context="platform_photo_card">
-                                    <% if @tweet.user.profile_background_image_url %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <% if @tweets[1].user.profile_background_image_url %>
+                                    <img data-aria-label-part="" src= <%= @tweets[1].user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% else %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <img data-aria-label-part="" src= <%= @tweets[1].user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% end %>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="stream-item-header">
-                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweet.user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweets[1].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                     </div>
                     <div class="js-tweet-text-container">
                         <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
-                            <%= @tweet.text %>
+                            <%= @tweets[1].text %>
                         </p>
                     </div>
                     <div class="stream-item-footer">
@@ -427,21 +460,21 @@ function render() {
                         <div class="AdaptiveMedia-container js-adaptive-media-container">
                             <div class="AdaptiveMedia-singlePhoto">
                                 <div class="AdaptiveMedia-photoContainer js-adaptive-photo" data-image-url="https://pbs.twimg.com/media/C1opnV1WgAA7SC2.jpg" data-element-context="platform_photo_card">
-                                    <% if @tweet.user.profile_background_image_url %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <% if @tweets[2].user.profile_background_image_url %>
+                                    <img data-aria-label-part="" src= <%= @tweets[2].user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% else %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <img data-aria-label-part="" src= <%= @tweets[2].user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% end %>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="stream-item-header">
-                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweet.user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweets[2].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                     </div>
                     <div class="js-tweet-text-container">
                         <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
-                            <%= @tweet.text %>
+                            <%= @tweets[2].text %>
                         </p>
                     </div>
                     <div class="stream-item-footer">
@@ -527,21 +560,21 @@ DELETE EVERYTHING FROM THIS POINT
                         <div class="AdaptiveMedia-container js-adaptive-media-container">
                             <div class="AdaptiveMedia-singlePhoto">
                                 <div class="AdaptiveMedia-photoContainer js-adaptive-photo" data-image-url="https://pbs.twimg.com/media/C1opnV1WgAA7SC2.jpg" data-element-context="platform_photo_card">
-                                    <% if @tweet.user.profile_background_image_url %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <% if @tweets[3].user.profile_background_image_url %>
+                                    <img data-aria-label-part="" src= <%= @tweets[3].user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% else %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <img data-aria-label-part="" src= <%= @tweets[3].user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% end %>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="stream-item-header">
-                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweet.user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweets[3].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                     </div>
                     <div class="js-tweet-text-container">
                         <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
-                            <%= @tweet.text %>
+                            <%= @tweets[3].text %>
                         </p>
                     </div>
                     <div class="stream-item-footer">
@@ -627,21 +660,21 @@ DELETE EVERYTHING FROM THIS POINT
                         <div class="AdaptiveMedia-container js-adaptive-media-container">
                             <div class="AdaptiveMedia-singlePhoto">
                                 <div class="AdaptiveMedia-photoContainer js-adaptive-photo" data-image-url="https://pbs.twimg.com/media/C1opnV1WgAA7SC2.jpg" data-element-context="platform_photo_card">
-                                    <% if @tweet.user.profile_background_image_url %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <% if @tweets[4].user.profile_background_image_url %>
+                                    <img data-aria-label-part="" src= <%= @tweets[4].user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% else %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <img data-aria-label-part="" src= <%= @tweets[4].user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% end %>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="stream-item-header">
-                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweet.user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweets[4].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                     </div>
                     <div class="js-tweet-text-container">
                         <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
-                            <%= @tweet.text %>
+                            <%= @tweets[4].text %>
                         </p>
                     </div>
                     <div class="stream-item-footer">
@@ -727,21 +760,21 @@ DELETE EVERYTHING FROM THIS POINT
                         <div class="AdaptiveMedia-container js-adaptive-media-container">
                             <div class="AdaptiveMedia-singlePhoto">
                                 <div class="AdaptiveMedia-photoContainer js-adaptive-photo" data-image-url="https://pbs.twimg.com/media/C1opnV1WgAA7SC2.jpg" data-element-context="platform_photo_card">
-                                    <% if @tweet.user.profile_background_image_url %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <% if @tweets[5].user.profile_background_image_url %>
+                                    <img data-aria-label-part="" src= <%= @tweets[5].user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% else %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <img data-aria-label-part="" src= <%= @tweets[5].user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% end %>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="stream-item-header">
-                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweet.user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweets[5].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                     </div>
                     <div class="js-tweet-text-container">
                         <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
-                            <%= @tweet.text %>
+                            <%= @tweets[5].text %>
                         </p>
                     </div>
                     <div class="stream-item-footer">
@@ -847,21 +880,21 @@ DELETE EVERYTHING FROM THIS POINT
                         <div class="AdaptiveMedia-container js-adaptive-media-container">
                             <div class="AdaptiveMedia-singlePhoto">
                                 <div class="AdaptiveMedia-photoContainer js-adaptive-photo" data-image-url="https://pbs.twimg.com/media/C1opnV1WgAA7SC2.jpg" data-element-context="platform_photo_card">
-                                    <% if @tweet.user.profile_background_image_url %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <% if @tweets[6].user.profile_background_image_url %>
+                                    <img data-aria-label-part="" src= <%= @tweets[6].user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% else %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <img data-aria-label-part="" src= <%= @tweets[6].user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% end %>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="stream-item-header">
-                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweet.user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweets[6].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                     </div>
                     <div class="js-tweet-text-container">
                         <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
-                            <%= @tweet.text %>
+                            <%= @tweets[6].text %>
                         </p>
                     </div>
                     <div class="stream-item-footer">
@@ -947,21 +980,21 @@ DELETE EVERYTHING FROM THIS POINT
                         <div class="AdaptiveMedia-container js-adaptive-media-container">
                             <div class="AdaptiveMedia-singlePhoto">
                                 <div class="AdaptiveMedia-photoContainer js-adaptive-photo" data-image-url="https://pbs.twimg.com/media/C1opnV1WgAA7SC2.jpg" data-element-context="platform_photo_card">
-                                    <% if @tweet.user.profile_background_image_url %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <% if @tweets[7].user.profile_background_image_url %>
+                                    <img data-aria-label-part="" src= <%= @tweets[7].user.profile_background_image_url %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% else %>
-                                    <img data-aria-label-part="" src= <%= @tweet.user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
+                                    <img data-aria-label-part="" src= <%= @tweets[7].user.tweet.user.profile_banner_url.to_s %> alt="" style="width: 100%; height: 200px; top: -0px;">
                                     <% end %>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="stream-item-header">
-                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweet.user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
+                        <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/nature" data-user-id="487833518"><img class="avatar js-action-profile-avatar" src=<%= @tweets[7].user.profile_image_url %> alt=""> <strong class="fullname js-action-profile-name show-popup-with-id" data-aria-label-part="">nature</strong> <span>‏</span><span class="username js-action-profile-name" data-aria-label-part=""><s>@</s><b>nature</b></span></a> <small class="time"><a href="/nature/status/818012040518336512" class="tweet-timestamp js-permalink js-nav js-tooltip" title="12:30 AM - 8 Jan 2017"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1483864243" data-time-ms="1483864243000" data-long-form="true" aria-hidden="true">10h</span><span class="u-hiddenVisually" data-aria-label-part="last">10 hours ago</span></a></small>
                     </div>
                     <div class="js-tweet-text-container">
                         <p class="TweetTextSize js-tweet-text tweet-text" lang="en" data-aria-label-part="0">
-                            <%= @tweet.text %>
+                            <%= @tweets[7].text %>
                         </p>
                     </div>
                     <div class="stream-item-footer">
