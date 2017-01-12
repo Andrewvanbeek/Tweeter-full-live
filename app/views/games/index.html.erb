@@ -108,17 +108,31 @@ $(function() {
             }
             function update() {
 
-            for(var i = 0; i < 3; i++){
-            if(baddies[i].body.x <= 190 && baddies[i].body.x <= 400 ){
+            for(var i = 0; i < 6; i++){
+                var a = 1
+                var b = 1
+                var c = 1
+            if (i < 3){
+                a = 190;
+                b = 400
+                c = 410
+            } else if(i >= 3 && i < 7) {
+                a = 600
+                b = 790
+                c = 800
+            }
+            if(baddies[i].body.x <= a && baddies[i].body.x <= b ){
             baddies[i].body.velocity.x = 300
             baddies[i].animations.play('righto')
             }
-            if(baddies[i].body.x >= 410){
+            if(baddies[i].body.x >= c){
             baddies[i].animations.play('lefto')
              baddies[i].body.velocity.x = -300
             }
 
             }
+
+
 
             var hitPlatform = game.physics.arcade.collide(player, platforms)
             var hitPlatforma = game.physics.arcade.collide(enemiesGridOne, platforms)
