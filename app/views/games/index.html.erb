@@ -137,6 +137,8 @@ $(function() {
             var hitPlatform = game.physics.arcade.collide(player, platforms)
             var hitPlatforma = game.physics.arcade.collide(enemiesGridOne, platforms)
             var hitPlatformb = game.physics.arcade.collide(enemiesGridTwo, platforms)
+            var enemiesinteract = game.physics.arcade.collide(player ,enemiesGridOne)
+            var enemiesinteract2 = game.physics.arcade.collide(player ,enemiesGridTwo)
             if(cursors.left.isDown){
             player.body.velocity.x = -550;
             player.animations.play('left');
