@@ -23,7 +23,7 @@ $(function() {
                 console.log(imageo)
             var elevator;
             var swiftblocka;
-
+            num = 6
             function preload() {
             game.load.spritesheet('dude', 'dude.png', 32, 48);
             game.load.image('ground', 'blackbar.png');
@@ -120,7 +120,7 @@ $(function() {
             fireKey = game.input.keyboard.addKey(Phaser.Keyboard.Z);
             }
             function update() {
-            for(var i = 0; i < 6; i++){
+            for(var i = 0; i < num; i++){
                 var a = 1
                 var b = 1
                 var c = 1
@@ -133,6 +133,7 @@ $(function() {
                 b = 790
                 c = 800
             }
+            if(baddies[i].body){
             if(baddies[i].body.x <= a && baddies[i].body.x <= b ){
             baddies[i].body.velocity.x = 300
             baddies[i].animations.play('righto')
@@ -141,12 +142,13 @@ $(function() {
             baddies[i].animations.play('lefto')
              baddies[i].body.velocity.x = -300
             }
-
+        }
             }
 
 
 
             var hitPlatform = game.physics.arcade.collide(player, platforms)
+            tweetHit = game.physics.arcade.collide(player, enemiesGridOne, collisionHandler, null, this)
             var hitPlatforma = game.physics.arcade.collide(enemiesGridOne, platforms)
             var hitPlatformb = game.physics.arcade.collide(enemiesGridTwo, platforms)
             var enemiesinteract = game.physics.arcade.collide(player ,enemiesGridOne)
@@ -166,9 +168,11 @@ $(function() {
             }
              else if(fireKey.isDown){
         console.log("cheeky boy")
+        player.scale.x = 1
         player.frame = 8
 
         var sword = swords.create(player.body.x + 20, player.body.y + 10, 's')
+        sword.tint = 3000 * 0x2E86C1
 
     } else {
             swords.removeAll()
@@ -181,8 +185,30 @@ $(function() {
             {
             player.body.velocity.y = -450;
             }
+
  $("#all").remove()
             }
+                function destroySprite (sprite) {
+
+    sprite.destroy();
+
+}
+            function collisionHandler (obj1, obj2) {
+    if(fireKey.isDown){
+        var a = 0
+        console.log(baddies.length)
+        while (a < 3) {
+            if(player.overlap(baddies[a])){
+                point = baddies.indexOf(baddies[a])
+                baddies[a].destroy()
+                baddies.splice(point, 1)
+                console.log(baddies.length)
+                num = baddies.length
+            }
+            a++;
+        }
+    }
+}
 
             function render() {
 
