@@ -26,6 +26,7 @@ $(function() {
             function preload() {
             game.load.spritesheet('dude', 'dude.png', 32, 48);
             game.load.image('ground', 'blackbar.png');
+            game.load.spritesheet('zombie', 'zombie3.png', 300, 480)
             game.load.image('twitter', image.src)
 
             }
@@ -64,18 +65,29 @@ $(function() {
             var tweetCGridTwo = platforms.create(565, 1250)
             tweetCGridTwo.scale.setTo(11.5, 7);
             tweetCGridTwo.body.immovable = true;
+
+            var tweetAGridThree = platforms.create(950, 260)
+            tweetAGridThree.scale.setTo(11, 8);
+            tweetAGridThree.body.immovable = true;
+            var tweetBGridThree = platforms.create(950, 750)
+            tweetBGridThree.scale.setTo(11.5, 5.5);
+            tweetBGridThree.body.immovable = true;
+            var tweetCGridThree = platforms.create(950, 1175)
+            tweetCGridThree.scale.setTo(11.5, 5.5);
+            tweetCGridThree.body.immovable = true;
             enemiesGridOne = game.add.group()
             baddies = []
             eOneY = 120
             while(eOneY < 1310 )
             {
-            enemy = enemiesGridOne.create(180, eOneY, 'dude');
+            enemy = enemiesGridOne.create(180, eOneY, 'zombie');
+            enemy.scale.setTo(0.2, 0.2)
             game.physics.arcade.enable(enemy);
             enemy.body.bounce.y = 0.1;
             enemy.body.gravity.y = 200;
             enemy.body.collideWorldBounds = true;
             enemy.animations.add('lefto', [0, 1, 2, 3], 10, true);
-            enemy.animations.add('righto', [5, 6, 7, 8], 10, true);
+            enemy.animations.add('righto', [0, 1, 2, 3], 10, true);
             eOneY += 500
             baddies.push(enemy)
             }
@@ -83,17 +95,18 @@ $(function() {
             enemiesGridTwo = game.add.group()
             while(eOneY < 1310 )
             {
-            enemy = enemiesGridTwo.create(580, eOneY, 'dude');
+            enemy = enemiesGridTwo.create(580, eOneY, 'zombie');
+            enemy.scale.setTo(0.35, 0.35)
             game.physics.arcade.enable(enemy);
             enemy.body.bounce.y = 0.1;
             enemy.body.gravity.y = 200;
             enemy.body.collideWorldBounds = true;
-            enemy.animations.add('lefto', [0, 1, 2, 3], 10, true);
-            enemy.animations.add('righto', [5, 6, 7, 8], 10, true);
+            enemy.animations.add('lefto', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 10, true);
+            enemy.animations.add('righto', [0, 1, 2, 3], 10, true);
             eOneY += 500
             baddies.push(enemy)
             }
-            player = game.add.sprite(160, 200, 'dude');
+            player = game.add.sprite(160, 200, 'player');
             game.physics.arcade.enable(player);
             game.camera.follow(player);
             player.body.bounce.y = 0.1;
