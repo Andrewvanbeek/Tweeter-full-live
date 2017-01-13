@@ -23,10 +23,12 @@ $(function() {
                 console.log(imageo)
             var elevator;
             var swiftblocka;
+
             function preload() {
             game.load.spritesheet('dude', 'dude.png', 32, 48);
             game.load.image('ground', 'blackbar.png');
             game.load.image('twitter', image.src)
+            game.load.image('s', 'sword_normal.png')
 
             }
             var card;
@@ -41,7 +43,8 @@ $(function() {
             var ground = platforms.create(0, game.world.height - 64, 'ground');
             ground.scale.setTo(5, 0.000001);
             ground.body.immovable = true;
-
+            swords = game.add.group()
+            swords.enableBody = true;
 
 
 
@@ -81,6 +84,7 @@ $(function() {
             {
             enemy = enemiesGridOne.create(180, eOneY, 'dude');
             game.physics.arcade.enable(enemy);
+             enemy.tint = 1000 * 0xFF0000;
             enemy.body.bounce.y = 0.1;
             enemy.body.gravity.y = 200;
             enemy.body.collideWorldBounds = true;
@@ -95,6 +99,7 @@ $(function() {
             {
             enemy = enemiesGridTwo.create(580, eOneY, 'dude');
             game.physics.arcade.enable(enemy);
+            enemy.tint = 1000 * 0xFF0000;
             enemy.body.bounce.y = 0.1;
             enemy.body.gravity.y = 200;
             enemy.body.collideWorldBounds = true;
@@ -112,6 +117,7 @@ $(function() {
             player.animations.add('left', [0, 1, 2, 3], 10, true);
             player.animations.add('right', [5, 6, 7, 8], 10, true);
             cursors = game.input.keyboard.createCursorKeys();
+            fireKey = game.input.keyboard.addKey(Phaser.Keyboard.Z);
             }
             function update() {
             for(var i = 0; i < 6; i++){
@@ -146,19 +152,27 @@ $(function() {
             var enemiesinteract = game.physics.arcade.collide(player ,enemiesGridOne)
             var enemiesinteract2 = game.physics.arcade.collide(player ,enemiesGridTwo)
             if(cursors.left.isDown){
+            swords.removeAll()
             player.body.velocity.x = -550;
             player.animations.play('left');
             }
             else if (cursors.right.isDown)
             {
+                 swords.removeAll()
             //  Move to the right
             player.body.velocity.x = 550;
 
             player.animations.play('right');
             }
-            else
-            {
-            //  Stand still
+             else if(fireKey.isDown){
+        console.log("cheeky boy")
+        player.frame = 8
+
+        var sword = swords.create(player.body.x + 20, player.body.y + 10, 's')
+
+    } else {
+            swords.removeAll()
+
             player.animations.stop();
             player.body.velocity.x = 0
             player.frame = 4;
