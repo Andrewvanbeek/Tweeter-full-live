@@ -77,27 +77,26 @@ $(function() {
             var tweetCGridTwo = platforms.create(940, 1150)
             tweetCGridTwo.scale.setTo(11.5, 7);
             tweetCGridTwo.body.immovable = true;
-            enemiesGridOne = game.add.group()
+            enemies = game.add.group()
             baddies = []
             eOneY = 120
             while(eOneY < 1310 )
             {
-            enemy = enemiesGridOne.create(180, eOneY, 'dude');
-            game.physics.arcade.enable(enemy);
-             enemy.tint = 1000 * 0xFF0000;
-            enemy.body.bounce.y = 0.1;
-            enemy.body.gravity.y = 200;
-            enemy.body.collideWorldBounds = true;
-            enemy.animations.add('lefto', [0, 1, 2, 3], 10, true);
-            enemy.animations.add('righto', [5, 6, 7, 8], 10, true);
+            enemya = enemies.create(180, eOneY, 'dude');
+            game.physics.arcade.enable(enemya);
+            enemya.tint = 1000 * 0xFF0000;
+            enemya.body.bounce.y = 0.1;
+            enemya.body.gravity.y = 200;
+            enemya.body.collideWorldBounds = true;
+            enemya.animations.add('lefto', [0, 1, 2, 3], 10, true);
+            enemya.animations.add('righto', [5, 6, 7, 8], 10, true);
             eOneY += 500
-            baddies.push(enemy)
+            baddies.push(enemya)
             }
             eOneY = 120
-            enemiesGridTwo = game.add.group()
             while(eOneY < 1310 )
             {
-            enemy = enemiesGridTwo.create(580, eOneY, 'dude');
+            enemy = enemies.create(580, eOneY, 'dude');
             game.physics.arcade.enable(enemy);
             enemy.tint = 1000 * 0xFF0000;
             enemy.body.bounce.y = 0.1;
@@ -146,13 +145,11 @@ $(function() {
             }
 
 
-
+            var hitPlatforma = game.physics.arcade.collide(enemies, platforms)
             var hitPlatform = game.physics.arcade.collide(player, platforms)
-            tweetHit = game.physics.arcade.collide(player, enemiesGridOne, collisionHandler, null, this)
-            var hitPlatforma = game.physics.arcade.collide(enemiesGridOne, platforms)
-            var hitPlatformb = game.physics.arcade.collide(enemiesGridTwo, platforms)
-            var enemiesinteract = game.physics.arcade.collide(player ,enemiesGridOne)
-            var enemiesinteract2 = game.physics.arcade.collide(player ,enemiesGridTwo)
+            tweetHit = game.physics.arcade.collide(player, enemies, collisionHandler, null, this)
+            var enemiesinteract = game.physics.arcade.collide(player ,enemies)
+            var enemiesinteract2 = game.physics.arcade.collide(player ,enemies)
             if(cursors.left.isDown){
             swords.removeAll()
             player.body.velocity.x = -550;
@@ -197,7 +194,7 @@ $(function() {
     if(fireKey.isDown){
         var a = 0
         console.log(baddies.length)
-        while (a < 3) {
+        while (a < num ) {
             if(player.overlap(baddies[a])){
                 point = baddies.indexOf(baddies[a])
                 baddies[a].destroy()
