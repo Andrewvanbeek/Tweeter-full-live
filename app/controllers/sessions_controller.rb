@@ -4,6 +4,10 @@ class SessionsController < ApplicationController
     redirect_to games_path
   end
 
+  def index
+    redirect_to oauth_path(:twitter)
+  end
+
   private
 
   def auth_hash
