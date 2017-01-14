@@ -6,8 +6,6 @@ $(function() {
             $(".EmbeddedTweet-tweet").addClass("tweet")
 
             html2canvas($("body"), {
-
-            logging: true,
             useCORS: true,
             onrendered: function(canvas) {
                 theCanvas = canvas;
@@ -24,6 +22,8 @@ $(function() {
             var elevator;
             var swiftblocka;
             num = 6
+            tweetArray = <%= @tweet_codes %>
+            console.log(tweetArray)
             function preload() {
             game.load.spritesheet('dude', 'dude.png', 32, 48);
             game.load.image('ground', 'blackbar.png');
@@ -119,6 +119,8 @@ $(function() {
             fireKey = game.input.keyboard.addKey(Phaser.Keyboard.Z);
             }
             function update() {
+
+
             for(var i = 0; i < num; i++){
                 var a = 1
                 var b = 1
@@ -185,11 +187,7 @@ $(function() {
 
  $("#all").remove()
             }
-                function destroySprite (sprite) {
 
-    sprite.destroy();
-
-}
             function collisionHandler (obj1, obj2) {
     if(fireKey.isDown){
         var a = 0
@@ -197,6 +195,19 @@ $(function() {
         while (a < num ) {
             if(player.overlap(baddies[a])){
                 point = baddies.indexOf(baddies[a])
+                var tweet = {tweet: tweetArray[a]}
+                  $.ajax({
+                    url: '/twitterfeeds',
+                    method: "GET",
+                    data: tweet,
+                    })
+                   .fail(function() {
+                  })
+                  .done(function(data) {
+
+                    });
+                tweet_point = tweetArray.indexOf(tweetArray[a])
+                tweetArray.splice(tweet_point, 1)
                 baddies[a].destroy()
                 baddies.splice(point, 1)
                 console.log(baddies.length)
