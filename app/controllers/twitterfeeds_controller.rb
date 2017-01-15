@@ -1,7 +1,13 @@
 class TwitterfeedsController < ApplicationController
   def index
-    # tweet = $twitter.search("#devbootcamp -rt", lang: "en").first
-    # @tweet = $twitter.oembed(tweet.id.to_s)
+
+    if params["tweet"]
+      @user = User.find_by(id: session[:user_id])
+      tweet_id = params['tweet']
+      tweet_user = $twitter.user(tweet_id.to_i)
+      name = tweet_user.screen_name
+      @user.tweet(name, session[:user_id])
+    end
   end
 
 
