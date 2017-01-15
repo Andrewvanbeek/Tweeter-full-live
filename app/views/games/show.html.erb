@@ -21,6 +21,7 @@ $(function() {
                 console.log(imageo)
             var elevator;
             var swiftblocka;
+            animation = 0
             weapons = []
             fireVariance = 10
             fireDirection = Math.floor(Math.random() * 360)
@@ -103,6 +104,7 @@ $(function() {
             eOneY = 120
             while(eOneY < 1310 )
             {
+            axe = game.add.sprite(0, 0, 'axe')
             enemy = enemies.create(580, eOneY, 'dude');
             game.physics.arcade.enable(enemy);
             enemy.tint = 1000 * 0xFF0000;
@@ -111,14 +113,15 @@ $(function() {
             enemy.body.collideWorldBounds = true;
             enemy.animations.add('lefto', [0, 1, 2, 3], 10, true);
             enemy.animations.add('righto', [5, 6, 7, 8], 10, true);
-            var axe = game.add.sprite(enemy.body.x - 50, enemy.body.y - 50, 'axe')
             game.physics.arcade.enable(axe);
+            axe.health = 200
             weapons.push(axe)
             eOneY += 500
             baddies.push(enemy)
             }
             player = game.add.sprite(160, 200, 'dude');
             game.physics.arcade.enable(player);
+            player.health = 5
             game.camera.follow(player);
             player.body.bounce.y = 0.1;
             player.body.gravity.y = 200;
@@ -129,7 +132,9 @@ $(function() {
             fireKey = game.input.keyboard.addKey(Phaser.Keyboard.Z);
             }
             function update() {
-
+            tweetHit = game.physics.arcade.collide(player, enemies, collisionHandler, null, this)
+            var enemiesinteract = game.physics.arcade.collide(player ,enemies)
+            var enemiesinteract2 = game.physics.arcade.collide(player ,enemies)
 
             for(var i = 0; i < num; i++){
                 var a = 1
@@ -149,12 +154,21 @@ $(function() {
                 weapons[i].body.x = baddies[i].body.x - 40
                 weapons[i].body.y = baddies[i].body.y - 5
                 weapons[i].anchor.setTo(0.5, 0.5)
-                weapons[i].angle += 1;
-                if(weapons[i].angle > 190){
-                    weapons[i].angle -= 50
+                console.log(weapons[i].health)
+                if(animation <= 500){
+                weapons[i].body.x = baddies[i].body.x - 60
+                weapons[i].body.y = baddies[i].body.y - 5
+                animation += 1
+                weapons[i].angle = 140}
+                else if(animation > 500 && animation <= 1000){
+                weapons[i].body.x = baddies[i].body.x + 10
+                weapons[i].body.y = baddies[i].body.y - 30
+                animation += 1
+                weapons[i].angle = 250
                 } else {
-                    weapons[i].angle += 10
+                    animation = 0
                 }
+                axeHit = game.physics.arcade.collide(player , weapons[i], deArmor, null, this)
             if(baddies[i].body.x <= a && baddies[i].body.x <= b ){
             baddies[i].body.velocity.x = 100
             baddies[i].animations.play('righto')
@@ -169,9 +183,6 @@ $(function() {
 
             var hitPlatforma = game.physics.arcade.collide(enemies, platforms)
             var hitPlatform = game.physics.arcade.collide(player, platforms)
-            tweetHit = game.physics.arcade.collide(player, enemies, collisionHandler, null, this)
-            var enemiesinteract = game.physics.arcade.collide(player ,enemies)
-            var enemiesinteract2 = game.physics.arcade.collide(player ,enemies)
             if(cursors.left.isDown){
             swords.removeAll()
             player.body.velocity.x = -550;
@@ -208,6 +219,24 @@ $(function() {
  $("#all").remove()
             }
 
+            function deArmor (obj1, obj2){
+            if(fireKey.isDown){
+                var b = 0
+                while(b < num){
+                if (player.overlap(weapons[b]) && animation < 500){
+                    weapons[b].health -= 1
+                        console.log(weapons[b].health)
+                }
+                b++;
+
+                }
+
+            }
+
+
+            }
+
+
             function collisionHandler (obj1, obj2) {
     if(fireKey.isDown){
         var a = 0
@@ -228,10 +257,10 @@ $(function() {
                     });
                 tweet_point = tweetArray.indexOf(tweetArray[a])
                 tweetArray.splice(tweet_point, 1)
-                baddies[a].destroy()
-                baddies.splice(point, 1)
-                console.log(baddies.length)
-                num = baddies.length
+                // baddies[a].destroy()
+                // baddies.splice(point, 1)
+                // console.log(baddies.length)
+                // num = baddies.length
             }
             a++;
         }
