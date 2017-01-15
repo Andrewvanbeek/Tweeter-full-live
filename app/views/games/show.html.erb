@@ -21,6 +21,7 @@ $(function() {
                 console.log(imageo)
             var elevator;
             var swiftblocka;
+            enemyhealth = 500
             animation = 0
             weapons = []
             fireVariance = 10
@@ -98,6 +99,7 @@ $(function() {
             eOneY += 500
             var axe = game.add.sprite(enemya.body.x - 50, enemya.body.y - 50, 'axe')
             game.physics.arcade.enable(axe);
+            axe.health = enemyhealth
             weapons.push(axe)
             baddies.push(enemya)
             }
@@ -114,7 +116,7 @@ $(function() {
             enemy.animations.add('lefto', [0, 1, 2, 3], 10, true);
             enemy.animations.add('righto', [5, 6, 7, 8], 10, true);
             game.physics.arcade.enable(axe);
-            axe.health = 200
+            axe.health = enemyhealth
             weapons.push(axe)
             eOneY += 500
             baddies.push(enemy)
@@ -155,6 +157,12 @@ $(function() {
                 weapons[i].body.y = baddies[i].body.y - 5
                 weapons[i].anchor.setTo(0.5, 0.5)
                 console.log(weapons[i].health)
+                if(weapons[i].health < 0){
+                    weaponPoint = weapons.indexOf(weapons[i])
+                    weapons[i].destroy()
+                      weapons.splice(weaponPoint, 1)
+
+                }
                 if(animation <= 500){
                 weapons[i].body.x = baddies[i].body.x - 60
                 weapons[i].body.y = baddies[i].body.y - 5
@@ -169,6 +177,7 @@ $(function() {
                     animation = 0
                 }
                 axeHit = game.physics.arcade.collide(player , weapons[i], deArmor, null, this)
+                game.world.bringToTop(baddies[i])
             if(baddies[i].body.x <= a && baddies[i].body.x <= b ){
             baddies[i].body.velocity.x = 100
             baddies[i].animations.play('righto')
@@ -224,8 +233,9 @@ $(function() {
                 var b = 0
                 while(b < num){
                 if (player.overlap(weapons[b]) && animation < 500){
-                    weapons[b].health -= 1
-                        console.log(weapons[b].health)
+                    enemyhealth -= 1
+                    weapons[b].health = enemyhealth
+
                 }
                 b++;
 
@@ -257,10 +267,10 @@ $(function() {
                     });
                 tweet_point = tweetArray.indexOf(tweetArray[a])
                 tweetArray.splice(tweet_point, 1)
-                // baddies[a].destroy()
-                // baddies.splice(point, 1)
-                // console.log(baddies.length)
-                // num = baddies.length
+                baddies[a].destroy()
+                baddies.splice(point, 1)
+                console.log(baddies.length)
+                num = baddies.length
             }
             a++;
         }
