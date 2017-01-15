@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20170114201248) do
   create_table "games", force: :cascade do |t|
     t.integer  "player_id"
     t.string   "tweet_subject"
+    t.integer  "score"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end

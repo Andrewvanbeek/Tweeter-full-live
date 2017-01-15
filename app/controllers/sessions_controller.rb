@@ -2,9 +2,7 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_or_create_from_omni(auth_hash)
     session[:user_id] = @user.id
-    puts '###############################################################################'
-    puts session[:user_id]
-    redirect_to games_path
+    redirect_to new_game_path
   end
 
   def index
