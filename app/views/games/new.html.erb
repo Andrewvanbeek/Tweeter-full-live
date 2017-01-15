@@ -3,3 +3,7 @@
   <%= f.text_field :tweet_subject %><br/>
   <%= f.submit %>
 <% end %>
+
+<% if @error %>
+  <p><%= @error %></p>
+<% end %>
