@@ -21,6 +21,9 @@ $(function() {
                 console.log(imageo)
             var elevator;
             var swiftblocka;
+            weapons = []
+            fireVariance = 10
+            fireDirection = Math.floor(Math.random() * 360)
             num = 6
             tweetArray = <%= @tweet_codes %>
             console.log(tweetArray)
@@ -29,6 +32,7 @@ $(function() {
             game.load.image('ground', '/blackbar.png');
             game.load.image('twitter', image.src)
             game.load.image('s', '/sword_normal.png')
+            game.load.image('axe', '/blunt.png')
 
             }
             var card;
@@ -91,6 +95,9 @@ $(function() {
             enemya.animations.add('lefto', [0, 1, 2, 3], 10, true);
             enemya.animations.add('righto', [5, 6, 7, 8], 10, true);
             eOneY += 500
+            var axe = game.add.sprite(enemya.body.x - 50, enemya.body.y - 50, 'axe')
+            game.physics.arcade.enable(axe);
+            weapons.push(axe)
             baddies.push(enemya)
             }
             eOneY = 120
@@ -104,6 +111,9 @@ $(function() {
             enemy.body.collideWorldBounds = true;
             enemy.animations.add('lefto', [0, 1, 2, 3], 10, true);
             enemy.animations.add('righto', [5, 6, 7, 8], 10, true);
+            var axe = game.add.sprite(enemy.body.x - 50, enemy.body.y - 50, 'axe')
+            game.physics.arcade.enable(axe);
+            weapons.push(axe)
             eOneY += 500
             baddies.push(enemy)
             }
@@ -134,14 +144,24 @@ $(function() {
                 b = 790
                 c = 800
             }
+
             if(baddies[i].body){
+                weapons[i].body.x = baddies[i].body.x - 40
+                weapons[i].body.y = baddies[i].body.y - 5
+                weapons[i].anchor.setTo(0.5, 0.5)
+                weapons[i].angle += 1;
+                if(weapons[i].angle > 190){
+                    weapons[i].angle -= 50
+                } else {
+                    weapons[i].angle += 10
+                }
             if(baddies[i].body.x <= a && baddies[i].body.x <= b ){
-            baddies[i].body.velocity.x = 300
+            baddies[i].body.velocity.x = 100
             baddies[i].animations.play('righto')
             }
-            if(baddies[i].body.x >= c){
+            else if(baddies[i].body.x >= c){
             baddies[i].animations.play('lefto')
-             baddies[i].body.velocity.x = -300
+             baddies[i].body.velocity.x = -100
             }
         }
             }

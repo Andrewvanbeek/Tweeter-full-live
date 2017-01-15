@@ -15,7 +15,6 @@ class GamesController < ApplicationController
     tweet_count = $twitter.search("#{@game.tweet_subject} -rt", result_type: "recent", lang: "en").to_a.length
     if tweet_count > 14
       if @game.save
-        puts "TEEEEEEEEST"
         redirect_to action: :show, id: @game.id
       end
     else
@@ -26,8 +25,8 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    @subject = @game.tweet_subject
-    tweet_results = $twitter.search("#{@subject} -rt", result_type: "recent", lang: "en").to_a.shuffle
+    @subject = @game.tweet_subject.humanize
+    tweet_results = $twitter.search("#{@game.tweet_subject} -rt", result_type: "recent", lang: "en").to_a.shuffle
     if tweet_results.count > 8
     @tweets = tweet_results.take(tweet_results.length / 2)
     @tweet_codes = @tweets.map {|tweet| tweet.user.id}
