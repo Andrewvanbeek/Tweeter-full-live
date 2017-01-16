@@ -22,6 +22,7 @@ $(function() {
             var elevator;
             var swiftblocka;
             enemyhealth = 500
+            playerLife = 500
             animation = 0
             weapons = []
             fireVariance = 10
@@ -123,7 +124,7 @@ $(function() {
             }
             player = game.add.sprite(160, 200, 'dude');
             game.physics.arcade.enable(player);
-            player.health = 5
+            player.health = playerLife
             game.camera.follow(player);
             player.body.bounce.y = 0.1;
             player.body.gravity.y = 200;
@@ -134,6 +135,12 @@ $(function() {
             fireKey = game.input.keyboard.addKey(Phaser.Keyboard.Z);
             }
             function update() {
+            console.log(player.health)
+                if(player.health < 0){
+                message = game.add.text(50, 0, "you lost!", { fontSize: '40px', fill: 'white'});
+            } else if(baddies.length <= 0){
+                message = game.add.text(50, 0, "you won!", { fontSize: '40px', fill: 'white'});
+            }
             tweetHit = game.physics.arcade.collide(player, enemies, collisionHandler, null, this)
             var enemiesinteract = game.physics.arcade.collide(player ,enemies)
             var enemiesinteract2 = game.physics.arcade.collide(player ,enemies)
@@ -232,7 +239,7 @@ $(function() {
             if(fireKey.isDown){
                 var b = 0
                 while(b < num){
-                if (player.overlap(weapons[b]) && animation < 500){
+                if (player.overlap(weapons[b]) && animation > 500){
                     enemyhealth -= 1
                     weapons[b].health = enemyhealth
 
@@ -241,10 +248,16 @@ $(function() {
 
                 }
 
+            }   else if (!fireKey.isDown && animation < 500){
+                playerLife -= 1
+                player.health = playerLife
             }
 
 
             }
+
+
+
 
 
             function collisionHandler (obj1, obj2) {
