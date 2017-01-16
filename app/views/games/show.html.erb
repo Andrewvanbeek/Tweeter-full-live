@@ -133,13 +133,17 @@ $(function() {
             player.animations.add('right', [5, 6, 7, 8], 10, true);
             cursors = game.input.keyboard.createCursorKeys();
             fireKey = game.input.keyboard.addKey(Phaser.Keyboard.Z);
+            defendKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
+            highBounceKey = game.input.keyboard.addKey(Phaser.Keyboard.A);
             }
             function update() {
             console.log(player.health)
                 if(player.health < 0){
                 message = game.add.text(50, 0, "you lost!", { fontSize: '40px', fill: 'white'});
+                 $("#gameover").show()
             } else if(baddies.length <= 0){
                 message = game.add.text(50, 0, "you won!", { fontSize: '40px', fill: 'white'});
+                $("#gameover").show()
             }
             tweetHit = game.physics.arcade.collide(player, enemies, collisionHandler, null, this)
             var enemiesinteract = game.physics.arcade.collide(player ,enemies)
@@ -203,8 +207,13 @@ $(function() {
             swords.removeAll()
             player.body.velocity.x = -550;
             player.animations.play('left');
-            }
-            else if (cursors.right.isDown)
+            } else if(highBounceKey.isDown) {
+                if(player.body.bounce.y == 0.1){
+                    player.body.bounce.y = 1
+                } else {
+                    player.body.bounce.y = 0.1
+                }
+            } else if (cursors.right.isDown)
             {
                  swords.removeAll()
             //  Move to the right
@@ -212,13 +221,19 @@ $(function() {
 
             player.animations.play('right');
             }
-             else if(fireKey.isDown){
+             else if(fireKey.isDown && !defendKey.isDown){
         console.log("cheeky boy")
         player.scale.x = 1
         player.frame = 8
 
         var sword = swords.create(player.body.x + 20, player.body.y + 10, 's')
         sword.tint = 3000 * 0x2E86C1
+            } else if(defendKey.isDown && !cursors.right.isDown && !cursors.left.isDown && !cursors.up.isDown && !fireKey.isDown){
+                swords.removeAll()
+                player.frame = 8
+                var sword = swords.create(player.body.x + 5, player.body.y, 's')
+                sword.angle = 315
+
 
     } else {
             swords.removeAll()
@@ -245,8 +260,9 @@ $(function() {
 
                 }
                 b++;
-
                 }
+                } else if(defendKey.isDown && !cursors.right.isDown && !cursors.left.isDown && !cursors.up.isDown && !fireKey.isDown){
+                    console.log("no damage")
 
             }   else if (!fireKey.isDown && animation < 500){
                 playerLife -= 1
@@ -299,6 +315,12 @@ $(function() {
 
             });
             </script>
+            <div id="gameover">
+                <br><br>
+                <%= link_to "New Game", new_game_path %>
+                <br><br>
+            </div>
+
             <div id="all">
                 <div id="doc" data-at-shortcutkeys='{"Enter":"Open Tweet details","o":"Expand photo","/":"Search","?":"This menu","j":"Next Tweet","k":"Previous Tweet","Space":"Page down",".":"Load new Tweets","gu":"Go to user\u2026"}' class="">
 

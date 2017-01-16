@@ -1,9 +1,34 @@
-<%= form_for @game do |f| %>
-  <%= f.label :tweet_subject %>:
-  <%= f.text_field :tweet_subject %><br/>
-  <%= f.submit %>
-<% end %>
 
-<% if @error %>
-  <p><%= @error %></p>
-<% end %>
+<div class="container">
+  <h2> Welcome to Tweet Fight<h2>
+  <article>
+    <h3>Important Disclaimer</h3>
+    <br>
+    <p>Tweet-fight borrows a lot of assets from Twitter.com but should be in no way be representative of Twitter or be perceived to be endorsed by Twitter.  Twitter has all rights reserved on its content.  Tweet fight is a proof of concept to use the twitter api to pay omage to Twitter through means of gamification to mimic socieal media websites through the Phaser js libary and their own provided api.  This project was for fun not for profit.  Finally have fun playing it, it was made with lots of love!</p>
+  </article>
+   <article>
+    <h3>Instructions</h3>
+    <br>
+    <h4>Goal</goal>
+    <p>The goal is to kill all the enemy sprites without getting killed</p>
+    <ul>
+    <li>Hold the directions arrows to move right, left, and to jump.  make sure to hold down for best exprience</li>
+    <li>Hold Z to swing the sword to attack enemies, and hold S to sheild and defend from enemy attacks</li>
+    <li>Press A, to change you players' amount of bounce to do more complicated maneuvers</li>
+    </ul>
+  </article>
+
+  <h2>To begin just write a subject into the field and click create game</h2>
+</div>
+<br><br><br><br>
+<div class="container">
+  <%= form_for @game do |f| %>
+    <%= f.label :tweet_subject %>:
+    <%= f.text_field :tweet_subject %><br/>
+    <%= f.submit %>
+  <% end %>
+
+  <% if @error %>
+    <p><%= @error %></p>
+  <% end %>
+</div class="container">

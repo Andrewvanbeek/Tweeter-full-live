@@ -12,3 +12,8 @@ body {
   max-height: 100px;
   white-space: pre-wrap
 }
+
+#gameover {
+  display: none;
+  padding-left: 15%
+}
