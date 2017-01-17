@@ -27,7 +27,7 @@ $(function() {
             weapons = []
             fireVariance = 10
             fireDirection = Math.floor(Math.random() * 360)
-            num = 6
+            num = 9
             tweetArray = <%= @tweet_codes %>
             console.log(tweetArray)
             function preload() {
@@ -122,6 +122,24 @@ $(function() {
             eOneY += 500
             baddies.push(enemy)
             }
+             eOneY = 120
+                 while(eOneY < 1310 )
+            {
+            axe = game.add.sprite(0, 0, 'axe')
+            enemyb = enemies.create(970, eOneY, 'dude');
+            game.physics.arcade.enable(enemyb);
+            enemyb.tint = 1000 * 0xFF0000;
+            enemyb.body.bounce.y = 0.1;
+            enemyb.body.gravity.y = 200;
+            enemyb.body.collideWorldBounds = true;
+            enemyb.animations.add('lefto', [0, 1, 2, 3], 10, true);
+            enemyb.animations.add('righto', [5, 6, 7, 8], 10, true);
+            game.physics.arcade.enable(axe);
+            axe.health = enemyhealth
+            weapons.push(axe)
+            eOneY += 500
+            baddies.push(enemyb)
+            }
             player = game.add.sprite(160, 200, 'dude');
             game.physics.arcade.enable(player);
             player.health = playerLife
@@ -132,8 +150,8 @@ $(function() {
             player.animations.add('left', [0, 1, 2, 3], 10, true);
             player.animations.add('right', [5, 6, 7, 8], 10, true);
             cursors = game.input.keyboard.createCursorKeys();
-            fireKey = game.input.keyboard.addKey(Phaser.Keyboard.Z);
-            defendKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
+            fireKey = game.input.keyboard.addKey(Phaser.Keyboard.F);
+            defendKey = game.input.keyboard.addKey(Phaser.Keyboard.D);
             highBounceKey = game.input.keyboard.addKey(Phaser.Keyboard.A);
             }
             function update() {
@@ -157,10 +175,14 @@ $(function() {
                 a = 190;
                 b = 400
                 c = 410
-            } else if(i >= 3 && i < 7) {
+            } else if(i >= 3 && i <= 5 ) {
                 a = 600
                 b = 790
                 c = 800
+            } else if(i >= 6){
+                a = 950
+                b = 1010
+                c = 1020
             }
 
             if(baddies[i].body){
@@ -244,7 +266,7 @@ $(function() {
             }
             if (cursors.up.isDown && player.body.touching.down && hitPlatform)
             {
-            player.body.velocity.y = -450;
+            player.body.velocity.y = -750;
             }
 
  $("#all").remove()
